@@ -11,6 +11,7 @@
   font-style: normal;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -19,13 +20,25 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #5eead4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5eead4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5eead4;
+}
+

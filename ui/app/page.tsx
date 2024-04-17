@@ -1,8 +1,10 @@
 'use client'
 
+import DestinationsPage from "./destinations/page";
+
 const App = () => {
   return (
-    <div>App</div>
+    <div><DestinationsPage /></div>
   )
 }
 

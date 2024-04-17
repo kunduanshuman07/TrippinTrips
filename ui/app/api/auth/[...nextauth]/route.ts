@@ -19,7 +19,7 @@ const authOptions = {
                 }
                 const cookieStore = cookies();
                 const supabase = createServerComponentClient({ cookies: () => cookieStore });
-                const res = await supabase.from('User').select('*').match({ email: email});
+                const res = await supabase.from('users').select('*').match({ email: email});
                 if(res?.data?.[0].password===password){
                     return res.data[0];
                 }
