@@ -55,7 +55,7 @@ const UserLayout = () => {
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/mytrips">My Trips</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a>Blogs</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a>Profile</a></li>
-                    <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a>Sign Out</a></li>
+                    <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a onClick={handleSignout}>Sign Out</a></li>
                 </ul>
             </div>
         </div>
