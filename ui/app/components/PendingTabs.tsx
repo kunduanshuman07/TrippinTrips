@@ -44,7 +44,6 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
             setAuth(true);
         }
     }, [status, user])
-    console.log(trips, activities);
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "auto auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}
