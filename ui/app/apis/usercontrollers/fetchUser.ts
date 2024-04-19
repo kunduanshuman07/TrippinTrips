@@ -1,14 +1,15 @@
 'use server'
 import { createClient } from "@supabase/supabase-js";
-export const fetchActivities = async ({ activity }: any) => {
+export const fetchUser = async ({ email }: any) => {
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
     const { data, error } = await supabase
-        .from('activities')
+        .from('users')
         .select('*')
-        .in('id', activity);
+        .match({email: email});
+        
     if (error) {
         console.log(error);
-        return { status: 200, data: { message: "Error fetching Activities" } };
+        return { status: 200, data: { message: "Error fetching User" } };
     }
-    return { status: 200, data: { message: 'Fetched Actvities', data } };
+    return { status: 200, data: { message: 'Fetched User', data: data?.[0] } };
 }

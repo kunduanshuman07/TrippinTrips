@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react"
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BiRupee } from "react-icons/bi";
 import Image1 from "../../images/destinations/1.jpg";
 import Image2 from "../../images/destinations/2.jpg";
 import Image3 from "../../images/destinations/3.jpg";
@@ -17,6 +16,9 @@ import Image8 from "../../images/destinations/8.jpg";
 import Image9 from "../../images/destinations/9.jpg";
 import Image10 from "../../images/destinations/10.jpg";
 import DestinationTabs from "@/app/components/DestinationTabs";
+import ActivitiesTab from "@/app/components/ActivitiesTabs";
+import HotelTabs from "@/app/components/HotelsTabs";
+import CheckoutTabs from "@/app/components/CheckoutTab";
 const Destination = () => {
     const importedImages = [
         Image1,
@@ -35,12 +37,15 @@ const Destination = () => {
     const [auth, setAuth] = useState<any>(false);
     const [destination, setDestination] = useState<any>([]);
     const { id } = useParams();
+    const [destTabs, setDesttabs] = useState<any>('Activities');
+    const [selectedActivities, setSelectedActivities] = useState<any>();
     useEffect(() => {
         const fetchDestinationData = async () => {
             const { status, data } = await fetchDestination({ name: id });
-            console.log(data);
-            setDestination(data.data?.[0]);
-            setLoading(false);
+            if (status == 200) {
+                setDestination(data.data?.[0]);
+                setLoading(false);
+            }
         }
         if (status === 'unauthenticated') {
             setAuth(false);
@@ -51,6 +56,7 @@ const Destination = () => {
             setAuth(true);
         }
     }, [status, id])
+
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "auto auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}
@@ -63,7 +69,7 @@ const Destination = () => {
                 <div className="flex flex-col p-10">
                     <div className="flex sm:flex-row flex-col w-full items-center">
                         <div className="sm:w-1/4 w-full sm:mr-2 mr-0">
-                            <Image src={importedImages[destination.img_index-1]} alt={destination?.name} className="rounded-lg mx-auto" width={300} style={{ height: "150px" }} />
+                            <Image src={importedImages[destination.img_index - 1]} alt={destination?.name} className="rounded-lg mx-auto" width={300} style={{ height: "150px" }} />
                         </div>
                         <div className="flex flex-col w-full sm:w-3/4 w-full items-center py-7 bg-amber-200 rounded-lg sm:mt-0 mt-4">
                             <h1 className="text-slate-800 text-xl font-bold text-center">{destination?.name}</h1>
@@ -74,7 +80,10 @@ const Destination = () => {
                             </div>
                         </div>
                     </div>
-                    <DestinationTabs/>
+                    <DestinationTabs destTabs={destTabs} setDesttabs={setDesttabs} />
+                    {destTabs === 'Activities' && <ActivitiesTab activity={destination?.activities} setSelectedActivities={setSelectedActivities} selectedActivities={selectedActivities} setDestTabs={setDesttabs}/>}
+                    {destTabs === 'Hotels' && <HotelTabs />}
+                    {destTabs === 'Checkout' && <CheckoutTabs activity={destination?.activities} selectedActivities={selectedActivities}setSelectedActivities={setSelectedActivities} dest_id={destination?.id}/>}
                 </div>
             }
         </div>
