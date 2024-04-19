@@ -97,12 +97,12 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
                         {
                             Object.keys(selectedActivities).length > 0 && <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
                             <div className="flex sm:mt-0">
-                                <label className="text-xs text-slate-400 font-bold my-auto mx-2">Start Date</label>
-                                <input type="date" className="input input-sm shadow-md input-accent text-xs cursor-pointer" onChange={(e) => setStartDate(e.target.value)} />
+                                <label className="text-xs text-slate-400 font-bold my-auto sm:mr-0">Start Date</label>
+                                <input type="date" className="input input-sm shadow-md input-accent text-xs cursor-pointer w-full" onChange={(e) => setStartDate(e.target.value)} />
                             </div>
                             <div className="flex sm:mt-0 mt-2">
-                                <label className="text-xs text-slate-400 font-bold my-auto mx-2">End Date</label>
-                                <input type="date" className="input input-sm shadow-md input-accent text-xs cursor-pointer" onChange={(e) => setEndDate(e.target.value)} />
+                                <label className="text-xs text-slate-400 font-bold my-auto sm:mr-0 mr-1">End Date</label>
+                                <input type="date" className="input input-sm shadow-md input-accent text-xs cursor-pointer w-full" onChange={(e) => setEndDate(e.target.value)} />
                             </div>
                         </div>
                         }
