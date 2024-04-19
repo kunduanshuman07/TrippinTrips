@@ -31,7 +31,7 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                 setActivities(activityResp?.data?.data);
                 setLoading(false);
             }
-            else{
+            else {
                 setLoading(false);
             }
         }
@@ -54,11 +54,11 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                 </div>
             }
             {!loading && auth &&
+
+                trips?.length === 0 ? <h1 className="text-center text-xs text-accent font-bold mt-4">No Pending trips</h1> :
                 <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
-                    {
-                        trips?.length===0?<h1 className="text-center text-xs text-accent font-bold mt-4">No Pending trips</h1>:
-                    
-                    trips?.map((trip: any, index: any) => (
+
+                    {trips?.map((trip: any, index: any) => (
                         <div className="flex flex-col shadow-md rounded-lg p-2" key={index}>
                             <h1 className="font-bold text-accent text-center">{trip?.dest_name}</h1>
                             <h1 className="text-xs text-slate-400 font-bold">Start date: {trip?.start_date}</h1>
