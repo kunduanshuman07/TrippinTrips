@@ -61,7 +61,7 @@ interface Props {
 
 const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selectedActivities, setDestTabs }) => {
     const { status } = useSession();
-    const [activityCounts, setActivityCounts] = useState<{ [key: number]: number }>(selectedActivities);
+    const [activityCounts, setActivityCounts] = useState<any>(selectedActivities);
     const [loading, setLoading] = useState<any>(true);
     const [auth, setAuth] = useState<any>(false);
     const [activities, setActivities] = useState<any>([]);
@@ -136,14 +136,14 @@ const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selec
         
     }
     const handleIncrement = (index: number) => {
-        setActivityCounts((prevCounts) => ({
+        setActivityCounts((prevCounts: any) => ({
             ...prevCounts,
             [index]: (prevCounts?.[index] || 0) + 1,
         }));
     };
 
     const handleDecrement = (index: number) => {
-        setActivityCounts((prevCounts) => ({
+        setActivityCounts((prevCounts: any) => ({
             ...prevCounts,
             [index]: Math.max((prevCounts?.[index] || 0) - 1, 0),
         }));
@@ -161,13 +161,13 @@ const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selec
                                 </div>
                                 <div className="flex flex-col p-2 items-center w-full">
                                     <h1 className="text-sm text-center text-cyan-700 font-bold mt-2">{x.name}</h1>
-                                    <h1 className="text-sm mt-2 text-slate-400 font-bold flex">Upper Limit: <BiRupee className="my-auto" /> {x.upper_limit}</h1>
+                                    <h1 className="text-sm mt-2 text-slate-400 font-bold flex"><BiRupee className="my-auto" /> {x.upper_limit}</h1>
                                     <h1 className="text-xs">{`(per person rates)`}</h1>
                                     <div className="flex flex-row mt-2">
-                                        <input className="input px-2 input-xs w-2/12 text-center text-slate-800 font-bold input-info ml-auto" placeholder="0" value={activityCounts?.[index] || 0}/>
+                                        <input className="input px-3 input-xs w-3/12 text-center text-slate-800 font-bold input-info ml-auto" placeholder="0" value={activityCounts?.[index] || 0}/>
                                         <div className="flex flex-row mr-auto ml-2">
-                                           <button className="btn btn-xs btn-accent text-white px-3" onClick={()=>handleIncrement(index)}>+</button>
-                                           <button className="btn btn-xs btn-accent text-white px-3 ml-2" onClick={()=>handleDecrement(index)}>-</button>
+                                           <button className="btn btn-xs btn-accent text-white sm:px-3 px-2" onClick={()=>handleIncrement(index)}>+</button>
+                                           <button className="btn btn-xs btn-accent text-white sm:px-3 px-2 ml-2" onClick={()=>handleDecrement(index)}>-</button>
                                         </div>
                                     </div>
                                 </div>

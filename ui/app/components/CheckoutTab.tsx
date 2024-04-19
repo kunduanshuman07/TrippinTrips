@@ -51,10 +51,17 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
     };
 
     const handleDecrement = (index: number) => {
-        setSelectedActivities((prevCounts: any) => ({
-            ...prevCounts,
-            [index]: Math.max((prevCounts?.[index] || 0) - 1, 0),
-        }));
+        setSelectedActivities((prevCounts: any) => {
+            const updatedCounts = {
+                ...prevCounts,
+                [index]: Math.max((prevCounts?.[index] || 0) - 1, 0),
+            };
+            if (updatedCounts[index] === 0) {
+                const { [index]: omit, ...rest } = updatedCounts;
+                return rest;
+            }
+            return updatedCounts;
+        });
     };
     const handleProceed = async() => {
         setButtonLoading(true);
@@ -70,6 +77,7 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
             router.push('/mytrips');
         }
     }
+    console.log(selectedActivities);
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "10px auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}
@@ -86,7 +94,8 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
                                 <button className="ml-2 btn btn-accent btn-xs text-white" onClick={() => handleDecrement(index)}>-</button>
                             </div>
                         ))}
-                        <div className="grid grid-cols-2 gap-4 mt-4">
+                        {
+                            Object.keys(selectedActivities).length > 0 && <div className="grid grid-cols-2 gap-4 mt-4">
                             <div className="flex">
                                 <label className="text-xs text-slate-400 font-bold my-auto mx-2">Start Date</label>
                                 <input type="date" className="input input-sm shadow-md input-accent text-xs cursor-pointer" onChange={(e) => setStartDate(e.target.value)} />
@@ -96,6 +105,7 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
                                 <input type="date" className="input input-sm shadow-md input-accent text-xs cursor-pointer" onChange={(e) => setEndDate(e.target.value)} />
                             </div>
                         </div>
+                        }
                     </div>
                     <div className="sm:w-1/3 w-full flex flex-col p-2 shadow-md rounded-lg sm:ml-2 ml-0 mt-3">
                         <h1 className="bg-accent text-white px-4 mx-auto mt-1 text-xs font-bold py-1 rounded-lg">Next Steps</h1>
@@ -104,7 +114,7 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
                             <h1 className="mr-auto flex text-xs text-slate-600 flex mt-2"><GoDotFill className="mr-2 my-auto" />Press the Proceed button below.</h1>
                             <h1 className="mr-auto flex text-xs text-slate-600 flex mt-2"><GoDotFill className="mr-2 my-auto" />You will recieve a confirmation call within 2 hours.</h1>
                             <h1 className="mr-auto flex text-xs text-slate-600 flex mt-2"><GoDotFill className="mr-2 my-auto" />Please visit My Trips section above to track the progress of your trip planning.</h1>
-                            <button className="btn btn-sm mx-auto btn-accent px-10 text-white mt-4 btn-outline" onClick={handleProceed}>Proceed {buttonLoading && <span className="loading loading-spinner loading-sm"></span>}</button>
+                            <button className="btn btn-sm mx-auto btn-accent px-10 text-white mt-4 btn-outline" onClick={handleProceed}disabled={Object.keys(selectedActivities).length === 0}>Proceed {buttonLoading && <span className="loading loading-spinner loading-sm"></span>}</button>
                         </div>
                     </div>
                 </div>

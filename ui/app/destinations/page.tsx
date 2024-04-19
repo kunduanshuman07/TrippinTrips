@@ -64,20 +64,20 @@ const DestinationsPage = () => {
                     <div className="sm:p-10 p-2 grid sm:grid-cols-2 grid-cols-1 gap-4">
                         {destinations.map((destination: any, index: any) => (
                             <div className="rounded-lg shadow-md p-2 flex flex-row" key={index}>
-                                <div style={{ borderRight: "1px solid #94a3b8" }} className="pr-2">
-                                    <Image src={importedImages[destination?.img_index-1]} alt={destination?.name} width={300} className="rounded-lg" style={{ height: "150px" }} />
+                                <div style={{ borderRight: "1px solid #94a3b8" }} className="pr-2 my-auto">
+                                    <Image src={importedImages[destination?.img_index-1]} alt={destination?.name} width={200} className="rounded-lg" style={{ height: "100px" }} />
                                 </div>
                                 <div className="flex flex-col w-full ml-1">
                                     <h1 className="text-slate-600 font-bold text-center">{destination?.name}</h1>
                                     <p className="mt-2 text-xs mx-auto text-center text-slate-400 font-bold">Why?: {destination?.desc}</p>
-                                    <div className="flex flex-row">
+                                    <div className="flex flex-row mt-2">
                                         <button className="btn btn-xs btn-outline mx-auto mt-2 btn-accent hover:text-white">Budget <BiRupee className="my-auto" />2000 to 3000</button>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-1 mt-3">
+                                    <div className="grid grid-cols-2 gap-1 mt-4">
                                         <h1 className="text-xs font-bold text-gray-500 text-center">Activities: {destination?.activities?.length}</h1>
                                         <h1 className="text-xs text-gray-500 font-bold text-center">State/UT: {destination?.state}</h1>
                                     </div>
-                                    <a className="mt-2 btn btn-accent btn-xs text-white px-6 mx-auto" href={`/destinations/${destination?.name}`}>Visit</a>
+                                    <a className="mt-4 btn btn-accent btn-xs text-white px-6 mx-auto" href={`/destinations/${destination?.name}`}>Visit</a>
                                 </div>
                             </div>
                         ))}
