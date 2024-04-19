@@ -56,7 +56,7 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
             {!loading && auth &&
                 <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
                     {
-                        trips.length===0?<h1 className="text-center text-xs text-accent font-bold mt-4">No Pending trips</h1>:
+                        trips?.length===0?<h1 className="text-center text-xs text-accent font-bold mt-4">No Pending trips</h1>:
                     
                     trips?.map((trip: any, index: any) => (
                         <div className="flex flex-col shadow-md rounded-lg p-2" key={index}>
