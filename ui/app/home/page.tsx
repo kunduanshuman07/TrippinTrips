@@ -21,7 +21,7 @@ const HomePage = () => {
                 <h1 className="text-teal-500 font-bold sm:text-3xl text-xl text-center">One Stop solution for planning your trips with your budget.</h1>
                 <ul className="steps steps-vertical m-auto mt-4">
                     <li className="step step-accent">Register</li>
-                    <li className="step step-accent">Choose destination or ask from trip planner</li>
+                    <li className="step step-accent">Choose destination/Trip planner</li>
                     <li className="step">Select activities within your budget</li>
                     <li className="step">Book Hotel</li>
                     <li className="step">Pay & Enjoy</li>
@@ -35,7 +35,7 @@ const HomePage = () => {
                 <h1 className="flex text-slate-400 font-bold text-xs mr-auto mt-2"><GoDotFill className="my-auto mr-2"/>Proceed with Payment.</h1>
                 <h1 className="flex text-slate-400 font-bold text-xs mr-auto mt-2"><GoDotFill className="my-auto mr-2"/>Recieve a ticket for hotels and activities.</h1>
                 <h1 className="flex text-slate-400 font-bold text-xs mr-auto mt-2"><GoDotFill className="my-auto mr-2"/>Visit your dream destinations, show your tickets on hotels and activities with full cooperation and Enjoy!</h1>
-                <div className="flex flex-row mx-auto my-10">
+                <div className="flex flex-row my-10">
                     <button className="btn btn-xs">24hr <MdOutlineSupportAgent className="my-auto"/> </button>
                     <button className="btn btn-xs ml-2">Hassle Free </button>
                     <button className="btn btn-xs ml-2">100% Cooperation </button>

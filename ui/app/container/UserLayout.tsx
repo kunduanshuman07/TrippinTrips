@@ -35,7 +35,7 @@ const UserLayout = () => {
                                         <div className="flex flex-col">
                                             <span className="font-bold">Account</span>
                                             <ul className="submenu absolute hidden group-hover:block bg-white shadow-md rounded-lg mt-6 py-2 px-2 w-28 mr-10">
-                                                <li><a href="#" className="block text-xs text-teal-400 hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg">Profile</a></li>
+                                                <li><a href="/profile" className="block text-xs text-teal-400 hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg">Profile</a></li>
                                                 <li><a onClick={handleSignout} className="block text-xs text-teal-400 hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg">Sign Out</a></li>
                                             </ul>
                                         </div>
