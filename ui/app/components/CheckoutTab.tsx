@@ -76,12 +76,11 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
             })
         }
         const userResp = await fetchUser({ email: data?.user?.email });
-        const tripResp = await checkoutTrip({ user_id: userResp.data.data.id, dest_id, dest_name, dest_state, start_date: startDate, end_date: endDate, activities: finalActivities });
+        const tripResp = await checkoutTrip({ user_id: userResp.data.data.id, dest_id, dest_name, dest_state, start_date: startDate, end_date: endDate, activities: finalActivities, stage: "Confirmation" });
         if (tripResp.status == 200) {
             router.push('/mytrips');
         }
     }
-    console.log(selectedActivities);
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "10px auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}

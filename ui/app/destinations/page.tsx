@@ -71,7 +71,7 @@ const DestinationsPage = () => {
                                     <h1 className="text-slate-600 font-bold text-center">{destination?.name}</h1>
                                     <p className="mt-2 text-xs mx-auto text-center text-slate-400 font-bold">Why?: {destination?.desc}</p>
                                     <div className="flex flex-row mt-2">
-                                        <button className="btn btn-xs btn-outline mx-auto mt-2 btn-accent hover:text-white">Budget <BiRupee className="my-auto" />2000 to 3000</button>
+                                        <button className="btn btn-xs btn-outline mx-auto mt-2 btn-accent hover:text-white">~ INR {destination.lower_limit} to {destination.upper_limit}</button>
                                     </div>
                                     <div className="grid grid-cols-2 gap-1 mt-4">
                                         <h1 className="text-xs font-bold text-gray-500 text-center">Activities: {destination?.activities?.length}</h1>

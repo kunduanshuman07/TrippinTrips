@@ -157,11 +157,11 @@ const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selec
                         {activities?.map((x: any, index: any) => (
                             <div className="flex flex-row shadow-md p-2" key={index}>
                                 <div className="" style={{ maxHeight: "150px", margin: "auto 2px" }}>
-                                    <Image src={importedImages[activity[index] - 1]} alt="" width={200} className="rounded-lg" />
+                                    <Image src={importedImages[x.id-1]} alt="" width={200} className="rounded-lg" />
                                 </div>
                                 <div className="flex flex-col p-2 items-center w-full">
                                     <h1 className="text-sm text-center text-cyan-700 font-bold mt-2">{x.name}</h1>
-                                    <h1 className="text-sm mt-2 text-slate-400 font-bold flex"><BiRupee className="my-auto" /> ~ {x.upper_limit}</h1>
+                                    <h1 className="text-sm mt-2 text-slate-400 font-bold flex">~ INR {x.upper_limit}</h1>
                                     <h1 className="text-xs">{`(per person rates)`}</h1>
                                     <div className="flex flex-row mt-2">
                                         <input className="input px-3 input-xs w-3/12 text-center text-slate-800 font-bold input-info ml-auto" placeholder="0" value={activityCounts?.[index] || 0}/>

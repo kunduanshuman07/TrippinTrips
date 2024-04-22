@@ -81,9 +81,9 @@ const Destination = () => {
                         </div>
                     </div>
                     <DestinationTabs destTabs={destTabs} setDesttabs={setDesttabs} />
-                    {destTabs === 'Activities' && <ActivitiesTab activity={destination?.activities} setSelectedActivities={setSelectedActivities} selectedActivities={selectedActivities} setDestTabs={setDesttabs}/>}
+                    {destTabs === 'Activities' && <ActivitiesTab activity={destination?.name} setSelectedActivities={setSelectedActivities} selectedActivities={selectedActivities} setDestTabs={setDesttabs}/>}
                     {destTabs === 'Hotels' && <HotelTabs />}
-                    {destTabs === 'Checkout' && <CheckoutTabs activity={destination?.activities} selectedActivities={selectedActivities}setSelectedActivities={setSelectedActivities} dest_id={destination?.id} dest_name={destination?.name} dest_state={destination?.state}/>}
+                    {destTabs === 'Checkout' && <CheckoutTabs activity={destination?.name} selectedActivities={selectedActivities}setSelectedActivities={setSelectedActivities} dest_id={destination?.id} dest_name={destination?.name} dest_state={destination?.state}/>}
                 </div>
             }
         </div>

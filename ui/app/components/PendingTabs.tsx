@@ -3,9 +3,9 @@
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react";
 import { fetchTrips } from "../apis/maincontrollers/fetchTrips";
-import { fetchActivities } from "../apis/maincontrollers/fetchActivities";
 import { GoDotFill } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import { fetchTripActivities } from "../apis/maincontrollers/fetchTripActivities";
 interface Props {
     user: any;
 }
@@ -26,7 +26,7 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                     extractedIds.push(obj?.activity_id);
                 });
             })
-            const activityResp = await fetchActivities({ activity: extractedIds });
+            const activityResp = await fetchTripActivities({ activity: extractedIds });
             if (activityResp.status == 200) {
                 setTrips(tripsResp?.data?.data);
                 setActivities(activityResp?.data?.data);
@@ -48,6 +48,7 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
     const handlePayment = () => {
         router.push('/checkout');
     }
+    console.log(activities);
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "auto auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}
@@ -70,8 +71,18 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                             <div className="flex flex-col">
                                 {trip?.activities.map((activity: any, index: any) => (
                                     <div className="flex flex-row" key={index}>
-                                        <h1 className="text-xs text-slate-600 font-bold mt-2 flex"><GoDotFill className="my-auto mr-2" />{activities[index]?.name}</h1>
-                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 ">{activity.count}</h1>
+                                        {(() => {
+                                            const matchedActivity = activities.find((a: any) => a.id === activity.activity_id);
+                                            if (matchedActivity) {
+                                                return (
+                                                    <>
+                                                        <h1 className="text-xs text-slate-600 font-bold mt-2 flex"><GoDotFill className="my-auto mr-2" />{matchedActivity.name}</h1>
+                                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 ">{activity.count}</h1>
+                                                    </>
+                                                );
+                                            }
+                                            return null;
+                                        })()}
                                     </div>
                                 ))}
                             </div>
@@ -86,14 +97,14 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                             </div>
                             <h1 className="text-slate-400 text-xs font-bold" style={{ marginTop: "auto" }}>You will get a call shortly discussing the further proceedings.</h1>
                             <ul className="steps steps-horizontal steps-xs mr-auto mt-4">
-                                <li className={`step text-xs ${trip.stage==='Confirmation'?'step-primary': 'step-neutral'}`}>Confirmation</li>
-                                <li className={`step text-xs ${trip.stage==='Payment'?'step-primary': 'step-neutral'}`}>Payment</li>
-                                <li className={`step text-xs ${trip.stage==='Ticket'?'step-neutral': 'step-neutral'}`}>Ticket</li>
+                                <li className={`step text-xs ${trip.stage === 'Confirmation' ? 'step-primary' : 'step-neutral'}`}>Confirmation</li>
+                                <li className={`step text-xs ${trip.stage === 'Payment' ? 'step-primary' : 'step-neutral'}`}>Payment</li>
+                                <li className={`step text-xs ${trip.stage === 'Ticket' ? 'step-neutral' : 'step-neutral'}`}>Ticket</li>
                             </ul>
                             <div className="flex flex-row mt-4">
                                 <button className="btn sm:btn-sm btn-xs btn-error text-white">Cancel Trip</button>
-                                <div className="tooltip tooltip-bottom ml-2" data-tip={trip.stage!=='Payment'?'Available after Confirmation': 'Start Payment'}>
-                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage!=='Payment'} onClick={handlePayment}>Pay {trip.stage==='Payment'&& trip.rate_approx}</button>
+                                <div className="tooltip tooltip-bottom ml-2" data-tip={trip.stage !== 'Payment' ? 'Available after Confirmation' : 'Start Payment'}>
+                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage !== 'Payment'} onClick={handlePayment}>Pay {trip.stage === 'Payment' && trip.rate_approx}</button>
                                 </div>
                             </div>
                         </div>
