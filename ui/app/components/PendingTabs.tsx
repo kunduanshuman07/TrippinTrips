@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { fetchTrips } from "../apis/maincontrollers/fetchTrips";
 import { GoDotFill } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import { MdEmojiPeople } from "react-icons/md";
 import { fetchTripActivities } from "../apis/maincontrollers/fetchTripActivities";
+import CancelTripModal from "./CancelTripModal";
 interface Props {
     user: any;
 }
@@ -14,9 +16,12 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
     const { status } = useSession();
     const router = useRouter();
     const [loading, setLoading] = useState<any>(true);
+    const [cancelModal, setCancelModal] = useState<any>();
     const [auth, setAuth] = useState<any>(false);
     const [trips, setTrips] = useState<any>();
     const [activities, setActivities] = useState<any>();
+    const [tripId, setTripId] = useState<any>();
+    const [tripName, setTripName] = useState<any>();
     useEffect(() => {
         const fetchPendingTrips = async () => {
             const tripsResp = await fetchTrips({ user_id: user?.id, type: "Pending" });
@@ -48,7 +53,11 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
     const handlePayment = () => {
         router.push('/checkout');
     }
-    console.log(activities);
+    const handleCancelTrip = (tripId: any, tripName: any) => {
+        setTripId(tripId);
+        setTripName(tripName);
+        setCancelModal(true);
+    }
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "auto auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}
@@ -68,7 +77,7 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                             <h1 className="text-xs text-slate-400 font-bold">Start date: {trip?.start_date}</h1>
                             <h1 className="text-xs text-slate-400 font-bold">End date: {trip?.end_date}</h1>
                             <h1 className="text-sm text-teal-500 mt-2">Activities</h1>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col mb-4">
                                 {trip?.activities.map((activity: any, index: any) => (
                                     <div className="flex flex-row" key={index}>
                                         {(() => {
@@ -77,7 +86,7 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                                                 return (
                                                     <>
                                                         <h1 className="text-xs text-slate-600 font-bold mt-2 flex"><GoDotFill className="my-auto mr-2" />{matchedActivity.name}</h1>
-                                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 ">{activity.count}</h1>
+                                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 flex"><MdEmojiPeople className="my-auto" />{activity.count}</h1>
                                                     </>
                                                 );
                                             }
@@ -86,29 +95,30 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                                     </div>
                                 ))}
                             </div>
-                            <h1 className="text-sm text-teal-500 mt-2">Hotel</h1>
+                            {/* <h1 className="text-sm text-teal-500 mt-2">Hotel</h1>
                             <div className="flex flex-col mb-4">
                                 {trip?.activities.map((activity: any, index: any) => (
                                     <div className="flex flex-row" key={index}>
                                         <h1 className="text-xs text-slate-600 font-bold mt-2 flex"><GoDotFill className="my-auto mr-2" />{activities[index]?.name}</h1>
-                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 ">{activity.count}</h1>
+                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 flex"><MdEmojiPeople className="my-auto" />{activity.count}</h1>
                                     </div>
                                 ))}
-                            </div>
-                            <h1 className="text-slate-400 text-xs font-bold" style={{ marginTop: "auto" }}>You will get a call shortly discussing the further proceedings.</h1>
+                            </div> */}
+                            <h1 className="text-slate-400 text-xs font-bold" style={{ marginTop: "auto" }}>{trip.stage==='Confirmation'?'You will get a call shortly discussing the further proceedings.': 'Please proceed with payment to download ticket and further instructions.'}</h1>
                             <ul className="steps steps-horizontal steps-xs mr-auto mt-4">
                                 <li className={`step text-xs ${trip.stage === 'Confirmation' ? 'step-primary' : 'step-neutral'}`}>Confirmation</li>
                                 <li className={`step text-xs ${trip.stage === 'Payment' ? 'step-primary' : 'step-neutral'}`}>Payment</li>
                                 <li className={`step text-xs ${trip.stage === 'Ticket' ? 'step-neutral' : 'step-neutral'}`}>Ticket</li>
                             </ul>
                             <div className="flex flex-row mt-4">
-                                <button className="btn sm:btn-sm btn-xs btn-error text-white">Cancel Trip</button>
+                                <button className="btn sm:btn-sm btn-xs btn-error text-white" onClick={()=>handleCancelTrip(trip.id, trip.dest_name)}>Cancel</button>
                                 <div className="tooltip tooltip-bottom ml-2" data-tip={trip.stage !== 'Payment' ? 'Available after Confirmation' : 'Start Payment'}>
                                     <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage !== 'Payment'} onClick={handlePayment}>Pay {trip.stage === 'Payment' && trip.rate_approx}</button>
                                 </div>
                             </div>
                         </div>
                     ))}
+                    {cancelModal && <CancelTripModal modalOpen={cancelModal} setModalOpen={setCancelModal} trip_id={tripId} dest_name={tripName}/>}
                 </div>
             }
         </div>

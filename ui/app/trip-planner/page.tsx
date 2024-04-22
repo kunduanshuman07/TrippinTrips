@@ -12,9 +12,9 @@ import Image8 from "../images/destinations/8.jpg";
 import Image9 from "../images/destinations/9.jpg";
 import Image10 from "../images/destinations/10.jpg";
 import Image from "next/image";
-import PlannerHeader from "../components/PlannerHeader";
 import { FiEdit2 } from "react-icons/fi";
 import { useSession } from "next-auth/react";
+import PlannerModal from "../components/PlannerModal";
 
 const importedImages = [
     Image1,
@@ -75,7 +75,7 @@ const TripPlannerPage = () => {
             }
             {!loading && auth &&
                 <>
-                    {modalOpen ? <PlannerHeader modalOpen={modalOpen} setModalOpen={setModalOpen} budget={budget} setBudget={setBudget} /> :
+                    {modalOpen ? <PlannerModal modalOpen={modalOpen} setModalOpen={setModalOpen} budget={budget} setBudget={setBudget} /> :
                         <div className="flex flex-col">
                             <div className="flex flex-row sm:px-10 p-2">
                                 <h1 className=" font-bold text-accent text-sm">Budget: INR {budget}</h1>

@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react";
 import { fetchTrips } from "../apis/maincontrollers/fetchTrips";
-import { fetchActivities } from "../apis/maincontrollers/fetchActivities";
+import { MdEmojiPeople } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 import { CgSoftwareDownload } from "react-icons/cg";
 import { fetchTripActivities } from "../apis/maincontrollers/fetchTripActivities";
@@ -64,7 +64,7 @@ const UpcomingTabs: React.FC<Props> = ({ user }) => {
                             <h1 className="text-xs text-slate-400 font-bold">Start date: {trip?.start_date}</h1>
                             <h1 className="text-xs text-slate-400 font-bold">End date: {trip?.end_date}</h1>
                             <h1 className="text-sm text-teal-500 mt-2">Activities</h1>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col mb-4">
                                 {trip?.activities.map((activity: any, index: any) => (
                                     <div className="flex flex-row" key={index}>
                                         {(() => {
@@ -73,7 +73,7 @@ const UpcomingTabs: React.FC<Props> = ({ user }) => {
                                                 return (
                                                     <>
                                                         <h1 className="text-xs text-slate-600 font-bold mt-2 flex"><GoDotFill className="my-auto mr-2" />{matchedActivity.name}</h1>
-                                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 ">{activity.count}</h1>
+                                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 flex"><MdEmojiPeople className="my-auto"/>{activity.count}</h1>
                                                     </>
                                                 );
                                             }
@@ -82,23 +82,21 @@ const UpcomingTabs: React.FC<Props> = ({ user }) => {
                                     </div>
                                 ))}
                             </div>
-                            <h1 className="text-sm text-teal-500 mt-2">Hotel</h1>
+                            {/* <h1 className="text-sm text-teal-500 mt-2">Hotel</h1>
                             <div className="flex flex-col mb-4">
                                 {trip?.activities.map((activity: any, index: any) => (
                                     <div className="flex flex-row" key={index}>
                                         <h1 className="text-xs text-slate-600 font-bold mt-2 flex"><GoDotFill className="my-auto mr-2" />{activities[index]?.name}</h1>
-                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 ">{activity.count}</h1>
+                                        <h1 className="text-xs text-slate-600 font-bold mt-2 ml-2 flex"><MdEmojiPeople className="my-auto"/>{activity.count}</h1>
                                     </div>
                                 ))}
-                            </div>
-                            <h1 className="text-slate-400 text-xs font-bold" style={{ marginTop: "auto" }}>You will get a call shortly discussing the further proceedings.</h1>
-                            <ul className="steps steps-horizontal steps-xs mr-auto mt-4">
+                            </div> */}
+                            <ul className="steps steps-horizontal steps-xs mr-auto mt-4" style={{marginTop: "auto"}}>
                                 <li className={`step text-xs ${trip.stage === 'Confirmation' ? 'step-primary' : 'step-neutral'}`}>Confirmation</li>
                                 <li className={`step text-xs ${trip.stage === 'Payment' ? 'step-primary' : 'step-neutral'}`}>Payment</li>
                                 <li className={`step text-xs ${trip.stage === 'Ticket' ? 'step-neutral' : 'step-neutral'}`}>Ticket</li>
                             </ul>
                             <div className="flex flex-row mt-4">
-                                <button className="btn sm:btn-sm btn-xs btn-error text-white">Cancel Trip</button>
                                 <div className="tooltip tooltip-bottom ml-2" data-tip="Paid">
                                     <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage !== 'Payment'}>{trip.stage !== 'Ticket' ? 'Pay' : 'Paid'}</button>
                                 </div>

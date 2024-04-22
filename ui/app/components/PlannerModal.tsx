@@ -7,7 +7,7 @@ interface Props {
     setBudget: (budget: any) => void;
 }
 
-const PlannerHeader: React.FC<Props> = ({ modalOpen, setModalOpen, budget, setBudget }) => {
+const PlannerModal: React.FC<Props> = ({ modalOpen, setModalOpen, budget, setBudget }) => {
     const handleClose = () => {
         setModalOpen(false);
     }
@@ -30,4 +30,4 @@ const PlannerHeader: React.FC<Props> = ({ modalOpen, setModalOpen, budget, setBu
     )
 }
 
-export default PlannerHeader
+export default PlannerModal
