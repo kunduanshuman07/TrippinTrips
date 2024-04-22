@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import MyTripsTabs from "../components/MyTripsTabs";
 import PendingTabs from "../components/PendingTabs";
 import { fetchUser } from "../apis/usercontrollers/fetchUser";
+import UpcomingTabs from "../components/UpcomingTabs";
 
 const MyTripsPage = () => {
     const { data, status } = useSession();
@@ -42,6 +43,7 @@ const MyTripsPage = () => {
                     <MyTripsTabs destTabs={destTabs} setDesttabs={setDesttabs}/>
                     <div className="flex flex-col sm:p-10 p-2">
                       {destTabs === 'Pending' && <PendingTabs user={user}/>}
+                      {destTabs === 'Upcoming' && <UpcomingTabs user={user}/>}
                     </div>
                 </div>
             }

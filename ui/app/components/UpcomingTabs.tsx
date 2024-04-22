@@ -5,21 +5,20 @@ import { useEffect, useState } from "react";
 import { fetchTrips } from "../apis/maincontrollers/fetchTrips";
 import { fetchActivities } from "../apis/maincontrollers/fetchActivities";
 import { GoDotFill } from "react-icons/go";
-import { useRouter } from "next/navigation";
+import { CgSoftwareDownload } from "react-icons/cg";
 interface Props {
     user: any;
 }
 
-const PendingTabs: React.FC<Props> = ({ user }) => {
+const UpcomingTabs: React.FC<Props> = ({ user }) => {
     const { status } = useSession();
-    const router = useRouter();
     const [loading, setLoading] = useState<any>(true);
     const [auth, setAuth] = useState<any>(false);
     const [trips, setTrips] = useState<any>();
     const [activities, setActivities] = useState<any>();
     useEffect(() => {
         const fetchPendingTrips = async () => {
-            const tripsResp = await fetchTrips({ user_id: user?.id, type: "Pending" });
+            const tripsResp = await fetchTrips({ user_id: user?.id, type: "Upcoming" });
             let extractedIds: any = [];
             tripsResp?.data?.data?.map((trip: any) => {
                 trip?.activities?.map((obj: any) => {
@@ -45,9 +44,6 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
             setAuth(true);
         }
     }, [status, user])
-    const handlePayment = () => {
-        router.push('/checkout');
-    }
     return (
         <div className="flex flex-col">
             {loading && <div style={{ margin: "auto auto" }}><span className="loading text-accent loading-dots loading-lg"></span></div>}
@@ -92,8 +88,11 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                             </ul>
                             <div className="flex flex-row mt-4">
                                 <button className="btn sm:btn-sm btn-xs btn-error text-white">Cancel Trip</button>
-                                <div className="tooltip tooltip-bottom ml-2" data-tip={trip.stage!=='Payment'?'Available after Confirmation': 'Start Payment'}>
-                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage!=='Payment'} onClick={handlePayment}>Pay {trip.stage==='Payment'&& trip.rate_approx}</button>
+                                <div className="tooltip tooltip-bottom ml-2" data-tip="Paid">
+                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage!=='Payment'}>{trip.stage!=='Ticket'?'Pay': 'Paid'}</button>
+                                </div>
+                                <div className="tooltip tooltip-bottom ml-2 mr-auto" data-tip={trip.stage!=='Ticket'?'Available after Payment': 'Download Ticket'}>
+                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white cursor-pointer" disabled={trip.stage!=='Ticket'}><CgSoftwareDownload/></button>
                                 </div>
                             </div>
                         </div>
@@ -104,4 +103,4 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
     )
 }
 
-export default PendingTabs;
+export default UpcomingTabs;
