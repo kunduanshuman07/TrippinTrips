@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react";
+import ProfileHeader from "../components/ProfileHeader";
 
 const ProfilePage = () => {
     const { status } = useSession();
@@ -26,17 +27,8 @@ const ProfilePage = () => {
                 </div>
             }
             {!loading && auth &&
-                <div>
-                    <div className="grid sm:grid-cols-2 grid-cols-1 p-4">
-                        <div className="collapse collapse-arrow shadow-md rounded-lg mt-4">
-                            <input type="checkbox" />
-                            <h1 className="collapse-title text-sm flex flex-row">Account Settings</h1>
-                            <div className="collapse-content flex flex-col">
-                                <a href="/password" className="text-[#0891b2] text-xs font-bold hover:underline mt-2">Change Password</a>
-                                <a className="text-[#dc2626] text-xs font-bold hover:underline mt-1 cursor-pointer">Delete Account</a>
-                            </div>
-                        </div>
-                    </div>
+                <div className="flex flex-col">
+                    This Page is in development...
                 </div>
             }
         </div>

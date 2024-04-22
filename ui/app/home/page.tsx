@@ -27,7 +27,7 @@ const HomePage = () => {
                     <li className="step">Pay & Enjoy</li>
                 </ul>
             </div>
-            <div className="flex flex-col sm:w-1/2 w-full sm:mt-0 mt-4 p-10">
+            <div className="flex flex-col sm:w-1/2 w-full sm:mt-0 mt-4 sm:p-10 p-2">
                 <h1 className="text-xl text-center text-slate-600 font-bold">How does it work?</h1>
                 <h1 className="flex text-slate-400 font-bold text-xs mr-auto mt-5"><GoDotFill className="my-auto mr-2"/>Select your destination and checkout.</h1>
                 <h1 className="flex text-slate-400 font-bold text-xs mr-auto mt-2"><GoDotFill className="my-auto mr-2"/>Recieve a call from our destination expert within 2 hours.</h1>
