@@ -92,7 +92,6 @@ const UpcomingTabs: React.FC<Props> = ({ user }) => {
                                 ))}
                             </div> */}
                             <ul className="steps steps-horizontal steps-xs mr-auto mt-4" style={{marginTop: "auto"}}>
-                                <li className={`step text-xs ${trip.stage === 'Confirmation' ? 'step-primary' : 'step-neutral'}`}>Confirmation</li>
                                 <li className={`step text-xs ${trip.stage === 'Payment' ? 'step-primary' : 'step-neutral'}`}>Payment</li>
                                 <li className={`step text-xs ${trip.stage === 'Ticket' ? 'step-neutral' : 'step-neutral'}`}>Ticket</li>
                             </ul>
@@ -100,7 +99,7 @@ const UpcomingTabs: React.FC<Props> = ({ user }) => {
                                 <div className="tooltip tooltip-bottom ml-2" data-tip="Paid">
                                     <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage !== 'Payment'}>{trip.stage !== 'Ticket' ? 'Pay' : 'Paid'}</button>
                                 </div>
-                                <div className="tooltip tooltip-bottom ml-2 mr-auto" data-tip={trip.stage !== 'Ticket' ? 'Available after Payment' : 'Download Ticket'}>
+                                <div className="tooltip tooltip-bottom ml-2 mr-auto" data-tip={trip.stage !== 'Ticket' ? 'Available after Payment' : 'Download Trip Ticket'}>
                                     <button className="btn sm:btn-sm btn-xs btn-accent text-white cursor-pointer" disabled={trip.stage !== 'Ticket'}><CgSoftwareDownload /></button>
                                 </div>
                             </div>

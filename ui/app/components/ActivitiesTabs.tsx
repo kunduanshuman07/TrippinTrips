@@ -57,9 +57,11 @@ interface Props {
     setSelectedActivities: (selectedActivities: any) => void;
     selectedActivities: any;
     setDestTabs: (destTabs: any) => void;
+    totalBudget: any;
+    setTotalBudget: (totalBudget: any) => void;
 }
 
-const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selectedActivities, setDestTabs }) => {
+const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selectedActivities, setDestTabs, totalBudget, setTotalBudget }) => {
     const { status } = useSession();
     const [activityCounts, setActivityCounts] = useState<any>(selectedActivities);
     const [loading, setLoading] = useState<any>(true);
@@ -133,9 +135,10 @@ const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selec
     const handleSaveActivities = () => {
         setSelectedActivities(activityCounts);
         setDestTabs('Checkout')
-        
+
     }
     const handleIncrement = (index: number) => {
+        setTotalBudget(totalBudget + activities[index].upper_limit);
         setActivityCounts((prevCounts: any) => ({
             ...prevCounts,
             [index]: (prevCounts?.[index] || 0) + 1,
@@ -143,6 +146,9 @@ const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selec
     };
 
     const handleDecrement = (index: number) => {
+        if (activityCounts[index] > 0) {
+            setTotalBudget(totalBudget - activities[index].upper_limit);
+        }
         setActivityCounts((prevCounts: any) => ({
             ...prevCounts,
             [index]: Math.max((prevCounts?.[index] || 0) - 1, 0),
@@ -157,23 +163,24 @@ const ActivitiesTab: React.FC<Props> = ({ activity, setSelectedActivities, selec
                         {activities?.map((x: any, index: any) => (
                             <div className="flex flex-row shadow-md p-2" key={index}>
                                 <div className="" style={{ maxHeight: "150px", margin: "auto 2px" }}>
-                                    <Image src={importedImages[x.id-1]} alt="" width={200} className="rounded-lg" />
+                                    <Image src={importedImages[x.id - 1]} alt="" width={200} className="rounded-lg" />
                                 </div>
                                 <div className="flex flex-col p-2 items-center w-full">
                                     <h1 className="text-sm text-center text-cyan-700 font-bold mt-2">{x.name}</h1>
                                     <h1 className="text-sm mt-2 text-slate-400 font-bold flex">~ INR {x.upper_limit}</h1>
                                     <h1 className="text-xs">{`(per person rates)`}</h1>
                                     <div className="flex flex-row mt-2">
-                                        <input className="input px-3 input-xs w-3/12 text-center text-slate-800 font-bold input-info ml-auto" placeholder="0" value={activityCounts?.[index] || 0}/>
+                                        <input className="input px-3 input-xs w-3/12 text-center text-slate-800 font-bold input-info ml-auto" placeholder="0" value={activityCounts?.[index] || 0} />
                                         <div className="flex flex-row mr-auto ml-2">
-                                           <button className="btn btn-xs btn-accent text-white sm:px-3 px-2" onClick={()=>handleIncrement(index)}>+</button>
-                                           <button className="btn btn-xs btn-accent text-white sm:px-3 px-2 ml-2" onClick={()=>handleDecrement(index)}>-</button>
+                                            <button className="btn btn-xs btn-accent text-white sm:px-3 px-2" onClick={() => handleIncrement(index)}>+</button>
+                                            <button className="btn btn-xs btn-accent text-white sm:px-3 px-2 ml-2" onClick={() => handleDecrement(index)}>-</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
+                    <button className="btn btn-xs mt-4 px-6 text-white bg-amber-700 font-bold hover:bg-amber-800 mx-auto">INR {totalBudget}.00</button>
                     <button className='btn btn-accent btn-sm mx-auto text-white mt-4' onClick={handleSaveActivities}>Save Selected Activities</button>
                 </>
             }

@@ -26,7 +26,6 @@ const UserLayout = () => {
                     <div className="flex-none hidden lg:block ">
                         <ul className="menu menu-horizontal text-xs text-teal-400">
                             <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a href="/destinations">Destinations</a></li>
-                            <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a href="/trip-planner">Trip Planner</a></li>
                             <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a href="/mytrips">My Trips</a></li>
                             <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a>Blogs</a></li>
                             <li>
@@ -51,7 +50,6 @@ const UserLayout = () => {
                 <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-52 min-h-full bg-base-200">
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/destinations">Destinations</a></li>
-                    <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/trip-planner">Trip Planner</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/mytrips">My Trips</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a>Blogs</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/profile">Profile</a></li>

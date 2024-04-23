@@ -21,9 +21,9 @@ const HomePage = () => {
                 <h1 className="text-teal-500 font-bold sm:text-3xl text-xl text-center">One Stop solution for planning your trips with your budget.</h1>
                 <ul className="steps steps-vertical m-auto mt-4">
                     <li className="step step-accent">Register</li>
-                    <li className="step step-accent">Choose destination/Trip planner</li>
+                    <li className="step step-accent">Choose destination</li>
                     <li className="step">Select activities within your budget</li>
-                    <li className="step">Book Hotel</li>
+                    <li className="step">Book Hotels within your budget</li>
                     <li className="step">Pay & Enjoy</li>
                 </ul>
             </div>

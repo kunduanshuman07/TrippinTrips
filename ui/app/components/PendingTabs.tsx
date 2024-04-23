@@ -106,7 +106,6 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                             </div> */}
                             <h1 className="text-slate-400 text-xs font-bold" style={{ marginTop: "auto" }}>{trip.stage==='Confirmation'?'You will get a call shortly discussing the further proceedings.': 'Please proceed with payment to download ticket and further instructions.'}</h1>
                             <ul className="steps steps-horizontal steps-xs mr-auto mt-4">
-                                <li className={`step text-xs ${trip.stage === 'Confirmation' ? 'step-primary' : 'step-neutral'}`}>Confirmation</li>
                                 <li className={`step text-xs ${trip.stage === 'Payment' ? 'step-primary' : 'step-neutral'}`}>Payment</li>
                                 <li className={`step text-xs ${trip.stage === 'Ticket' ? 'step-neutral' : 'step-neutral'}`}>Ticket</li>
                             </ul>

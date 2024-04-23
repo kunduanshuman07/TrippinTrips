@@ -16,9 +16,11 @@ interface Props {
     dest_id: any;
     dest_name: any;
     dest_state: any;
+    totalBudget:any;
+    setTotalBudget: (totalBudget: any) => void;
 }
 
-const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelectedActivities, dest_id, dest_name, dest_state }) => {
+const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelectedActivities, dest_id, dest_name, dest_state, totalBudget, setTotalBudget }) => {
     const { data, status } = useSession();
     const [loading, setLoading] = useState<any>(true);
     const [auth, setAuth] = useState<any>(false);
@@ -46,6 +48,7 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
         }
     }, [status, activity])
     const handleIncrement = (index: number) => {
+        setTotalBudget(totalBudget + activities[index].upper_limit);
         setSelectedActivities((prevCounts: any) => ({
             ...prevCounts,
             [index]: (prevCounts?.[index] || 0) + 1,
@@ -53,6 +56,9 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
     };
 
     const handleDecrement = (index: number) => {
+        if (selectedActivities[index] > 0) {
+            setTotalBudget(totalBudget - activities[index].upper_limit);
+        }
         setSelectedActivities((prevCounts: any) => {
             const updatedCounts = {
                 ...prevCounts,
@@ -76,7 +82,7 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
             })
         }
         const userResp = await fetchUser({ email: data?.user?.email });
-        const tripResp = await checkoutTrip({ user_id: userResp.data.data.id, dest_id, dest_name, dest_state, start_date: startDate, end_date: endDate, activities: finalActivities, stage: "Confirmation" });
+        const tripResp = await checkoutTrip({ user_id: userResp.data.data.id, dest_id, dest_name, dest_state, start_date: startDate, end_date: endDate, activities: finalActivities, stage: "Payment", rate_approx: totalBudget });
         if (tripResp.status == 200) {
             router.push('/mytrips');
         }
@@ -117,6 +123,7 @@ const CheckoutTabs: React.FC<Props> = ({ activity, selectedActivities, setSelect
                             <h1 className="mr-auto flex text-xs text-slate-600 flex mt-2"><GoDotFill className="mr-2 my-auto" />Press the Proceed button below.</h1>
                             <h1 className="mr-auto flex text-xs text-slate-600 flex mt-2"><GoDotFill className="mr-2 my-auto" />You will recieve a confirmation call within 2 hours.</h1>
                             <h1 className="mr-auto flex text-xs text-slate-600 flex mt-2"><GoDotFill className="mr-2 my-auto" />Please visit My Trips section above to track the progress of your trip planning.</h1>
+                            <button className="btn btn-xs mt-4 px-6 text-white bg-amber-700 font-bold hover:bg-amber-800 mx-auto">INR {totalBudget}.00</button>
                             <button className="btn btn-sm mx-auto btn-accent px-10 text-white mt-4 btn-outline" onClick={handleProceed} disabled={Object.keys(selectedActivities).length === 0}>Proceed {buttonLoading && <span className="loading loading-spinner loading-sm"></span>}</button>
                         </div>
                     </div>

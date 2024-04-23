@@ -39,6 +39,7 @@ const Destination = () => {
     const { id } = useParams();
     const [destTabs, setDesttabs] = useState<any>('Activities');
     const [selectedActivities, setSelectedActivities] = useState<any>();
+    const [totalBudget, setTotalBudget] = useState<any>(0);
     useEffect(() => {
         const fetchDestinationData = async () => {
             const { status, data } = await fetchDestination({ name: id });
@@ -81,9 +82,9 @@ const Destination = () => {
                         </div>
                     </div>
                     <DestinationTabs destTabs={destTabs} setDesttabs={setDesttabs} />
-                    {destTabs === 'Activities' && <ActivitiesTab activity={destination?.name} setSelectedActivities={setSelectedActivities} selectedActivities={selectedActivities} setDestTabs={setDesttabs}/>}
+                    {destTabs === 'Activities' && <ActivitiesTab activity={destination?.name} setSelectedActivities={setSelectedActivities} selectedActivities={selectedActivities} setDestTabs={setDesttabs} totalBudget={totalBudget} setTotalBudget={setTotalBudget}/>}
                     {destTabs === 'Hotels' && <HotelTabs />}
-                    {destTabs === 'Checkout' && <CheckoutTabs activity={destination?.name} selectedActivities={selectedActivities}setSelectedActivities={setSelectedActivities} dest_id={destination?.id} dest_name={destination?.name} dest_state={destination?.state}/>}
+                    {destTabs === 'Checkout' && <CheckoutTabs activity={destination?.name} selectedActivities={selectedActivities}setSelectedActivities={setSelectedActivities} dest_id={destination?.id} dest_name={destination?.name} dest_state={destination?.state} totalBudget={totalBudget} setTotalBudget={setTotalBudget}/>}
                 </div>
             }
         </div>
