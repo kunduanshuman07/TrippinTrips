@@ -23,7 +23,7 @@ const LoginPage = () => {
         email, password, redirect: false
       });
       if (loginResp?.ok) {
-        router.push('/');
+        router.push('/destinations');
       }
       else {
         setErrorMessage('Invalid Credentials!');
@@ -46,7 +46,7 @@ const LoginPage = () => {
         <input className="input input-sm input-accent mt-2 text-xs" placeholder="●●●●●●●●" type="password" onChange={(e) => setPassword(e.target.value)} />
         <button className="btn btn-accent text-white mt-6 btn-sm" disabled={loading} onClick={handleLogin}>Sign In {loading && <span className="loading loading-dots loading-sm loading-white"></span>}</button>
         <a href="/register" className="text-xs m-auto mt-10">{`Don't have an account?`}<span className="ml-1 underline">Sign Up Now</span></a>
-        <p className="text-xs mt-20 mx-auto test-slate-300">{`By continuing, you agree to Trippin.Trips' Terms of Service and Privacy Policy, and to receive periodic emails with updates.`}</p>
+        <p className="text-xs mt-10 mx-auto test-slate-300">{`By continuing, you agree to Trippin.Trips' Terms of Service and Privacy Policy, and to receive periodic emails with updates.`}</p>
       </div>
       <div className='w-2/3 flex flex-col hidden sm:block'>
         <div className="flex flex-col mx-auto mt-20 items-center">

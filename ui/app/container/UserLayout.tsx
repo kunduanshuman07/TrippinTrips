@@ -27,7 +27,7 @@ const UserLayout = () => {
                         <ul className="menu menu-horizontal text-xs text-teal-400">
                             <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a href="/destinations">Destinations</a></li>
                             <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a href="/mytrips">My Trips</a></li>
-                            <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a>Blogs</a></li>
+                            <li className="hover:bg-teal-500 font-bold hover:text-white hover:rounded-lg"><a href="/blogs">Blogs</a></li>
                             <li>
                                 <ul className={`dropdown-menu ${session?'': 'hidden'}`}>
                                     <li className="relative group">
@@ -51,7 +51,7 @@ const UserLayout = () => {
                 <ul className="menu p-4 w-52 min-h-full bg-base-200">
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/destinations">Destinations</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/mytrips">My Trips</a></li>
-                    <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a>Blogs</a></li>
+                    <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/blogs">Blogs</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a href="/profile">Profile</a></li>
                     <li className="hover:bg-teal-500 hover:text-white hover:rounded-lg text-teal-400 mt-3"><a onClick={handleSignout}>Sign Out</a></li>
                 </ul>

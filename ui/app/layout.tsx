@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import UserLayout from "./container/UserLayout";
 import AuthProvider from "./AuthProvider";
+import NextBreadcrumb from "./components/NextBreadcrumb";
 
 
 
@@ -20,6 +21,14 @@ export default function RootLayout({
       <AuthProvider>
         <body>
           <UserLayout />
+          <NextBreadcrumb
+            homeElement={'Trips'}
+            separator={<span> | </span>}
+            activeClasses='text-teal-500 sm:text-sm text-xs m-auto'
+            containerClasses='flex py-2 sm:px-5 px-2 bg-white'
+            listClasses='sm:text-sm text-xs hover:underline mx-2 font-bold m-auto'
+            capitalizeLinks
+          />
           {children}
         </body>
       </AuthProvider>
