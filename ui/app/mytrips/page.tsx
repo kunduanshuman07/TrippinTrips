@@ -42,7 +42,7 @@ const MyTripsPage = () => {
                 <div className="flex flex-col">
                     <MyTripsTabs destTabs={destTabs} setDesttabs={setDesttabs}/>
                     <div className="flex flex-col sm:p-10 p-2">
-                      {destTabs === 'Pending' && <PendingTabs user={user}/>}
+                      {destTabs === 'Pending' && <PendingTabs user={user} setTab={setDesttabs}/>}
                       {destTabs === 'Upcoming' && <UpcomingTabs user={user}/>}
                     </div>
                 </div>

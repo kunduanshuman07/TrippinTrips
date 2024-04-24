@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation";
 import { MdEmojiPeople } from "react-icons/md";
 import { fetchTripActivities } from "../apis/maincontrollers/fetchTripActivities";
 import CancelTripModal from "./CancelTripModal";
+import CheckOutModal from "./CheckoutModal";
 interface Props {
     user: any;
+    setTab: (destTab: any) => void;
 }
 
-const PendingTabs: React.FC<Props> = ({ user }) => {
+const PendingTabs: React.FC<Props> = ({ user, setTab }) => {
     const { status } = useSession();
     const router = useRouter();
     const [loading, setLoading] = useState<any>(true);
@@ -22,6 +24,8 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
     const [activities, setActivities] = useState<any>();
     const [tripId, setTripId] = useState<any>();
     const [tripName, setTripName] = useState<any>();
+    const [checkOutModal, setCheckoutModal] = useState<any>(false);
+    const [amount, setAmount] = useState<any>();
     useEffect(() => {
         const fetchPendingTrips = async () => {
             const tripsResp = await fetchTrips({ user_id: user?.id, type: "Pending" });
@@ -50,8 +54,10 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
             setAuth(true);
         }
     }, [status, user])
-    const handlePayment = () => {
-        router.push('/checkout');
+    const handlePayment = (tripId: any, rate: any) => {
+        setAmount(rate);
+        setTripId(tripId);
+        setCheckoutModal(true);
     }
     const handleCancelTrip = (tripId: any, tripName: any) => {
         setTripId(tripId);
@@ -112,12 +118,13 @@ const PendingTabs: React.FC<Props> = ({ user }) => {
                             <div className="flex flex-row mt-4">
                                 <button className="btn sm:btn-sm btn-xs btn-error text-white" onClick={()=>handleCancelTrip(trip.id, trip.dest_name)}>Cancel</button>
                                 <div className="tooltip tooltip-bottom ml-2" data-tip={trip.stage !== 'Payment' ? 'Available after Confirmation' : 'Start Payment'}>
-                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage !== 'Payment'} onClick={handlePayment}>Pay {trip.stage === 'Payment' && trip.rate_approx}</button>
+                                    <button className="btn sm:btn-sm btn-xs btn-accent text-white" disabled={trip.stage !== 'Payment'} onClick={()=>handlePayment(trip.id, trip.rate_approx)}>Pay {trip.stage === 'Payment' && trip.rate_approx}</button>
                                 </div>
                             </div>
                         </div>
                     ))}
                     {cancelModal && <CancelTripModal modalOpen={cancelModal} setModalOpen={setCancelModal} trip_id={tripId} dest_name={tripName}/>}
+                    {checkOutModal && <CheckOutModal modalOpen={checkOutModal} setModalOpen={setCheckoutModal} budget={amount} user={user} tripId={tripId} setTab={setTab}/>}
                 </div>
             }
         </div>
